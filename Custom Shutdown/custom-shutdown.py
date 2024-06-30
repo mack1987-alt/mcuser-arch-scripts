@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 import getpass
 import subprocess
+import os
 import time
 
 class ShutdownApp:
@@ -34,24 +35,17 @@ class ShutdownApp:
 
     def update_system(self):
         self.progress_bar.start()
-        process = subprocess.Popen(["/home/mcuser/scripts/update-system.sh"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        debug_window = tk.Toplevel(self.master)
-        debug_window.title("Update System Debug")
-        debug_window.geometry("600x400")
-        debug_text = tk.Text(debug_window, wrap="word", width=80, height=20)
-        debug_text.pack()
-
-        while process.poll() is None:
-            output = process.stdout.readline().decode("utf-8").strip()
-            if output:
-                print(output)
-                debug_text.insert(tk.END, output + "\n")
-                debug_window.update_idletasks()
-            time.sleep(0.1)  # Add a short delay to allow the debug window to update
-
-        self.progress_bar.stop()
-        messagebox.showinfo("Shutdown", "Shutting down...")
-        subprocess.run(["shutdown", "-h", "now"])
+        root_password = getpass.getpass("Enter your root password: ")
+        command = f"echo {root_password} | sudo -S pacman -Syu"
+        try:
+            output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+            print(output.decode("utf-8"))
+            messagebox.showinfo("Update Successful", "System updated successfully.")
+        except subprocess.CalledProcessError as e:
+            print(e.output.decode("utf-8"))
+            messagebox.showerror("Update Failed", "Failed to update system.")
+        finally:
+            self.progress_bar.stop()
 
     def cancel(self):
         messagebox.showinfo("Shutdown Canceled", "Shutdown canceled. Exiting...")
