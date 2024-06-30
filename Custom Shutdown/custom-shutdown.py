@@ -33,10 +33,11 @@ class ShutdownApp:
         else:
             messagebox.showerror("Invalid Password", "Invalid password. Please try again.")
 
-    def update_system(self):
-        self.progress_bar.start()
+    def update_system():
         root_password = getpass.getpass("Enter your root password: ")
-        command = f"echo {root_password} | sudo -S pacman -Syu"
+        command = ["sudo", "-S", "pacman", "-Syu"]
+        process = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process.communicate(input=f"{root_password}\n".encode())
         try:
             output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
             print(output.decode("utf-8"))
