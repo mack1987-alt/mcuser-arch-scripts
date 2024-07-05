@@ -4,7 +4,7 @@
 echo -ne "\033]0;Disk Usage\007"
 
 clear
-echo "13ah0xxx disk usage...."
+echo "Device disk usage...."
 
 # Set terminal geometry
 wmctrl -r :ACTIVE: -e 0,0,80,650,200
