@@ -4,14 +4,20 @@
 ![Bash](https://img.shields.io/badge/Bash-Script-blue)
 
 
-A simple, robust Bash script to install or update packages from the Arch User Repository (AUR) using yay. This tool streamlines AUR package management on Arch Linux systems, automating cloning, dependency resolution, building, and installation—saving users hours of manual setup and troubleshooting during system configuration or software updates.Problem SolvedArch Linux's AUR is a treasure trove of community-maintained packages not available in official repositories, but managing them manually can be tedious: cloning repos, resolving dependencies, building with makepkg, and handling updates. This script automates the process using yay (a popular AUR helper), reducing errors, ensuring safe installations (with PKGBUILD reviews), and making it beginner-friendly. 
+A simple, robust Bash script to install or update packages from the Arch User Repository (AUR) using yay. This tool streamlines AUR package management on Arch Linux systems, automating cloning, dependency resolution, building, and installation—saving users hours of manual setup and troubleshooting during system configuration or software updates.
+
+Problem Solved
+Arch Linux's AUR is a treasure trove of community-maintained packages not available in official repositories, but managing them manually can be tedious: cloning repos, resolving dependencies, building with makepkg, and handling updates. 
+
+This script automates the process using yay, reducing errors, ensuring safe installations (with PKGBUILD reviews), and making it beginner-friendly. 
 For example:
 
-        ◦ Saves Time on Setups: Automates package management to save hours on fresh Arch installs or maintaining custom software.
-        ◦ Reduces Errors: Handles edge cases like missing packages, existing installations, and dependency checks automatically.
-        ◦ Enhances Safety: Leverages yay's built-in prompts for reviewing untrusted PKGBUILD files, preventing potential security issues.
+        ◦ Saves Time on Setups: Automates package management to save hours on fresh Arch installs or maintaining 		custom software.
+        ◦ Reduces Errors: Handles edge cases like missing packages, existing installations, and dependency checks 		automatically.
+        ◦ Enhances Safety: Leverages yay's built-in prompts for reviewing untrusted PKGBUILD files, preventing 			potential security issues.
 
 Ideal for developers, sysadmins, or Arch enthusiasts who frequently deal with AUR packages like custom themes, drivers, or niche tools (e.g., visual-studio-code-bin or spotify).
+
 Features
         ◦ Checks if yay is installed and prompts if not.
         ◦ Supports command-line arguments for package names (e.g., ./aur-installer.sh package-name).
@@ -20,6 +26,7 @@ Features
         ◦ Color-coded output for better readability (errors in red, success in green).
         ◦ Help menu with --help flag.
         ◦ No manual cleanup needed—yay manages build artifacts.
+
 Installation
 Prerequisites:
         ◦ Arch Linux or an Arch-based distro (e.g., Manjaro).
@@ -41,7 +48,6 @@ Usage
 Run the script with:
 ./aur-installer.sh [package_name]
 
-
 If no package name is provided, it will prompt you.
     • Use -h or --help for usage instructions.
 The script will:
@@ -62,7 +68,6 @@ Enter package name when prompted (e.g., visual-studio-code-bin).
 	[yay output here, including PKGBUILD review prompt]
 	Installation of 'visual-studio-code-bin' complete.
 	Press Enter to close...
-
 
 Installing via Argument
 ./aur-installer.sh spotify
