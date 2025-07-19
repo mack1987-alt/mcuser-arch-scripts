@@ -91,7 +91,6 @@ Options:
 
 If no package_name is provided, you'll be prompted for one.
 
-Contributing
 Contributions welcome! Fork the repo, make changes, and submit a pull request. Suggestions:
     • Add support for multiple packages.
     • Integrate with other AUR helpers like paru.
