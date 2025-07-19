@@ -1,7 +1,7 @@
 import psutil
 import time
 
-def log_system_resources(interval=60, log_file='/path/to/file/system_resources.log'):
+def log_system_resources(interval=60, log_file='/home/mcuser/system_resources.log'):
     with open(log_file, 'a') as f:
         while True:
             cpu_usage = psutil.cpu_percent(interval=1)
