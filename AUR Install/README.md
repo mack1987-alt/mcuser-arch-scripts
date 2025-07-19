@@ -90,13 +90,14 @@ Options:
   -h, --help    Show this help message and exit
 
 If no package_name is provided, you'll be prompted for one.
-Contributing
 
+Contributing
 Contributions welcome! Fork the repo, make changes, and submit a pull request. Suggestions:
     • Add support for multiple packages.
     • Integrate with other AUR helpers like paru.
     • Follow Bash best practices (lint with shellcheck).
 
 
-LicenseThis project is licensed under the MIT License - see the LICENSE file for details.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
