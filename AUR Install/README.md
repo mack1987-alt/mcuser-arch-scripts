@@ -98,6 +98,6 @@ Contributions welcome! Fork the repo, make changes, and submit a pull request. S
     • Follow Bash best practices (lint with shellcheck).
 
 
-License
+License:
 This project is licensed under the MIT License - see the LICENSE file for details.
 
