@@ -14,8 +14,8 @@ Installation
 
     bash
 
-git clone https://github.com/your-username/custom-shutdown-script.git
-cd custom-shutdown-script
+git clone https://github.com/mack1987-alt/mcuser-arch-scripts.git
+cd 'Custom Shutdown'
 
 Edit the custom-shutdown.sh script to specify the directory where update-system.sh is located. Replace /path/to/your/scripts with the actual directory path.
 

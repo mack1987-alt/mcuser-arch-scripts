@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# Version 1.4
 # Prompt the user if they want to shut down
 echo "Shutting down..."
 read -p "Are you sure you want to shutdown? (yes/no): " answer

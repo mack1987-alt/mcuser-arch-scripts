@@ -40,8 +40,8 @@ Installation
 
     bash
 
-git clone https://github.com/your-username/ddgr-search-script.git
-cd ddgr-search-script
+git clone https://github.com/mack1987-alt/mcuser-arch-scripts.git
+cd 'DDGR Search'
 
 Make the script executable:
 
