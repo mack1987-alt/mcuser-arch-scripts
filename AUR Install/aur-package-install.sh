@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# version 2.01
 set -euo pipefail  # Exit on errors, unset variables, and pipe failures for robustness
 
 # Colors for better output readability
