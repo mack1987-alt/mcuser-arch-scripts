@@ -32,10 +32,10 @@ Prerequisites:
 		cd ..
 		rm -rf yay
 Clone the Repository:
-	git clone https://github.com/yourusername/aur-installer.git
-	cd aur-installer
+	git clone https://github.com/mack1987-alt/mcuser-arch-scripts.git
+	cd mcuser-arch-scripts/'AUR Install'
     • Make the Script Executable:
-	chmod +x aur-installer.sh
+	chmod +x aur-package-installer.sh
 
 Usage
 Run the script with:
