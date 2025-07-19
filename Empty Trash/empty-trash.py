@@ -1,3 +1,4 @@
+# Version 1.6
 import os
 import tkinter as tk
 from tkinter import messagebox, scrolledtext
