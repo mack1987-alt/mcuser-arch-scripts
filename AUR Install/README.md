@@ -1,157 +1,97 @@
-AUR Tool Script
+﻿AUR Package Installer
 
-This script automates the process of checking, updating, and installing packages from the Arch User Repository (AUR) using yay.
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) 
+![Bash](https://img.shields.io/badge/Bash-Script-blue)
+
+
+A simple, robust Bash script to install or update packages from the Arch User Repository (AUR) using yay. This tool streamlines AUR package management on Arch Linux systems, automating cloning, dependency resolution, building, and installation—saving users hours of manual setup and troubleshooting during system configuration or software updates.Problem SolvedArch Linux's AUR is a treasure trove of community-maintained packages not available in official repositories, but managing them manually can be tedious: cloning repos, resolving dependencies, building with makepkg, and handling updates. This script automates the process using yay (a popular AUR helper), reducing errors, ensuring safe installations (with PKGBUILD reviews), and making it beginner-friendly. 
+For example:
+
+        ◦ Saves Time on Setups: Automates package management to save hours on fresh Arch installs or maintaining custom software.
+        ◦ Reduces Errors: Handles edge cases like missing packages, existing installations, and dependency checks automatically.
+        ◦ Enhances Safety: Leverages yay's built-in prompts for reviewing untrusted PKGBUILD files, preventing potential security issues.
+
+Ideal for developers, sysadmins, or Arch enthusiasts who frequently deal with AUR packages like custom themes, drivers, or niche tools (e.g., visual-studio-code-bin or spotify).
 Features
-
-    Sets the terminal title to "AUR tool".
-    Checks if yay (Yet Another Yaourt) is installed; prompts to install if not.
-    Clones the specified AUR package from https://aur.archlinux.org.
-    Updates an existing AUR package if prompted.
-    Installs dependencies and builds the AUR package using makepkg.
-    Cleans up by removing the cloned package directory after installation or update.
-
-Prerequisites
-
-Before running this script, ensure you have the following prerequisites installed:
-
-    yay: AUR helper tool for Arch Linux.
-
-Installation on Arch Linux
-
-bash
-
-# Install yay
-sudo pacman -S yay
+        ◦ Checks if yay is installed and prompts if not.
+        ◦ Supports command-line arguments for package names (e.g., ./aur-installer.sh package-name).
+        ◦ Verifies if the package exists in AUR before proceeding.
+        ◦ Handles updates for already-installed packages with user confirmation.
+        ◦ Color-coded output for better readability (errors in red, success in green).
+        ◦ Help menu with --help flag.
+        ◦ No manual cleanup needed—yay manages build artifacts.
+Installation
+Prerequisites:
+        ◦ Arch Linux or an Arch-based distro (e.g., Manjaro).
+        ◦ Git for cloning (usually pre-installed).
+        ◦ yay installed. If not, install it manually:
+		sudo pacman -S --needed git base-devel
+		git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg -si
+		cd ..
+		rm -rf yay
+Clone the Repository:
+	git clone https://github.com/yourusername/aur-installer.git
+	cd aur-installer
+    • Make the Script Executable:
+	chmod +x aur-installer.sh
 
 Usage
+Run the script with:
+./aur-installer.sh [package_name]
 
-    Open a terminal.
 
-    Navigate to the directory where the script (aur_tool.sh) is located.
+If no package name is provided, it will prompt you.
+    • Use -h or --help for usage instructions.
+The script will:
+    • Check if the package is already installed.
+    • Prompt to update if installed, or install if not.
+    • Use yay to handle the process securely.
+Options
+    • -h, --help: Display help message.
 
-    Make the script executable if it isn't already:
+Installing a New Package (Prompt Mode)
 
-    bash
+./aur-installer.sh
 
-chmod +x aur_tool.sh
+Enter package name when prompted (e.g., visual-studio-code-bin).
+    • Output:
+	Enter the name of the AUR package: visual-studio-code-bin
+	Installing 'visual-studio-code-bin' from AUR...
+	[yay output here, including PKGBUILD review prompt]
+	Installation of 'visual-studio-code-bin' complete.
+	Press Enter to close...
 
-Run the script:
 
-bash
+Installing via Argument
+./aur-installer.sh spotify
 
-    ./aur_tool.sh
+Automatically installs spotify if not present, or prompts to update.
 
-    Follow the prompts in the script:
-        Enter the name of the AUR package you want to install/update.
-        Choose whether to update an existing package if prompted.
-        Confirm installation of dependencies and package build.
+Updating an Existing PackageIf the package is installed:
+Package 'spotify' already installed. Update it? (y/n): y
+Updating 'spotify'...
+[Success message]
 
-    After installation or update, press Enter to close the terminal window.
+Help Menu
+./aur-installer.sh --help
 
-Example
+Output:
+Usage: ./aur-installer.sh [options] [package_name]
+Install or update an AUR package using yay.
 
-Here's an example of how the script interacts with the user:
+Options:
+  -h, --help    Show this help message and exit
 
-bash
-
-$ ./aur_tool.sh
-AUR tool
-
-Enter the name of the AUR package: some-package
-Cloning 'some-package' from AUR...
-Building and installing 'some-package'...
-:: Checking for conflicts...
-:: Checking for inner conflicts...
-[...]
-(1/1) checking keys in keyring                     [######################] 100%
-(1/1) checking package integrity                   [######################] 100%
-(1/1) loading package files                        [######################] 100%
-(1/1) checking for file conflicts                  [######################] 100%
-(1/1) checking available disk space                [######################] 100%
-:: Processing package changes...
-[...]
-==> Finished making: some-package 1.0-1 (Fri Jun 21 20:09:36 UTC 2024)
-Installation of 'some-package' from AUR is complete.
-Press Enter to close...
-
-Script Contents
-
-Here is the content of the aur_tool.sh script:
-
-bash
-
-#!/bin/bash
-
-set -e  # Exit on any command failure
-
-# Set terminal title
-echo -ne "\033]0;AUR tool\007"
-
-# Check if yay is installed
-if ! command -v yay >/dev/null 2>&1; then
-  echo "Error: yay is not installed. Please install yay before running this script."
-  exit 1
-fi
-
-read -rp "Enter the name of the AUR package: " aur_package
-
-if [[ -z $aur_package ]]; then
-  echo "Error: Package name cannot be empty."
-  exit 1
-fi
-
-# Function to perform cleanup
-cleanup() {
-  cd ..
-  rm -rf "$aur_package"
-}
-
-# Check if package exists in AUR
-if yay -Qi "$aur_package" >/dev/null 2>&1; then
-  read -rp "Package '$aur_package' already exists. Do you want to update it? (y/n): " update_choice
-  if [[ $update_choice =~ ^[Yy]$ ]]; then
-    echo "Updating '$aur_package'..."
-    yay -Syu "$aur_package" --needed --noconfirm
-    echo "Package '$aur_package' has been updated."
-    cleanup
-  else
-    echo "Skipping update for '$aur_package'."
-    cleanup
-  fi
-else
-  echo "Cloning '$aur_package' from AUR..."
-  if ! git clone "https://aur.archlinux.org/$aur_package.git"; then
-    echo "Error: Failed to clone '$aur_package' from AUR."
-    exit 1
-  fi
-
-  cd "$aur_package"
-  
-  # Check if package has dependencies
-  if [[ -f PKGBUILD ]]; then
-    checkdepends=($(awk -F '=' '/^checkdepends/ {print $2}' PKGBUILD))
-    if [[ ${#checkdepends[@]} -gt 0 ]]; then
-      echo "Installing dependencies for '$aur_package'..."
-      yay -S --needed --noconfirm "${checkdepends[@]}"
-    fi
-  fi
-  
-  echo "Building and installing '$aur_package'..."
-  if ! makepkg -si; then
-    echo "Error: Failed to build and install '$aur_package'."
-    cleanup
-    read -rp "Press Enter to close..."
-  fi
-
-  echo "Installation of '$aur_package' from AUR is complete."
-  cleanup
-fi
-
-read -rp "Press Enter to close..."
-
+If no package_name is provided, you'll be prompted for one.
 Contributing
 
-Contributions are welcome! Fork the repository and submit a pull request with your enhancements.
-License
+Contributions welcome! Fork the repo, make changes, and submit a pull request. Suggestions:
+    • Add support for multiple packages.
+    • Integrate with other AUR helpers like paru.
+    • Follow Bash best practices (lint with shellcheck).
 
-This project is licensed under the MIT License. See the LICENSE file for more details.
+
+LicenseThis project is licensed under the MIT License - see the LICENSE file for details.
+
